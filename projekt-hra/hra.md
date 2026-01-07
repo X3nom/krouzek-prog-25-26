@@ -57,7 +57,7 @@ kam?:
 ```
 
 
-# 3. část - had
+## 3. část - had
 
 - když hráč je had a pokaždé když sebere "poklad", prodlouží se o jedno políčko
 
@@ -77,7 +77,7 @@ skore: 3
 kam?: 
 ```
 
-<!-- ## nápověda -->
+<!-- ### nápověda -->
 <!-- - vždy když se hlava hada posune, odebere se část z konce ocasu -->
 
 <!-- - technicky vzato se hlava nemusí posouvat, stačí přidat nový článek těla tam, kam se má posunout a odebrat poslední článek -->
