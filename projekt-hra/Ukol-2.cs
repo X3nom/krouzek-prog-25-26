@@ -1,5 +1,4 @@
-﻿using System;
-using System.Numerics;
+using System;
 
 namespace SimpleHra
 {
@@ -19,20 +18,16 @@ namespace SimpleHra
             int width = 9;
             int height = 9;
 
+            int player_x = 0;
+            int player_y = 0;
+
             (int treasure_x, int treasure_y) = GenerateTreasurePosition(width, height);
-
-            LinkedList<(int, int)> snake = new();
-
-            // (x, y)
-            snake.AddFirst((0, 0));
 
             int score = 0;
 
             while (true)
             {
                 Console.Clear();
-
-                (int player_x, int player_y) = snake.First.Value;
 
                 for (int y = 0; y < height; y++)
                 {
@@ -42,10 +37,6 @@ namespace SimpleHra
                         if (x == player_x && y == player_y)
                         {
                             row = row + "#";
-                        }
-                        else if (snake.Contains((x, y)))
-                        {
-                            row = row + "*";
                         }
                         else if (x == treasure_x && y == treasure_y)
                         {
@@ -63,23 +54,21 @@ namespace SimpleHra
 
                 Console.WriteLine("Score: " + score);
 
-                int new_head_x = player_x;
-                int new_head_y = player_y;
-
                 string kam = Console.ReadKey().KeyChar.ToString();
+
                 switch (kam)
                 {
                     case "w":
-                        new_head_y -= 1;
+                        player_y -= 1;
                         break;
                     case "s":
-                        new_head_y += 1;
+                        player_y += 1;
                         break;
                     case "a":
-                        new_head_x -= 1;
+                        player_x -= 1;
                         break;
                     case "d":
-                        new_head_x += 1;
+                        player_x += 1;
                         break;
 
                     default:
@@ -87,28 +76,15 @@ namespace SimpleHra
                         break;
                 }
 
-                new_head_y = (new_head_y + height) % height;
-                new_head_x = (new_head_x + width) % width;
-
-                snake.AddFirst((new_head_x, new_head_y));
-
-                if (snake.Skip(1).Contains((new_head_x, new_head_y)))
-                {
-                    Console.Clear();
-                    Console.WriteLine("Game Over! Final Score: " + score);
-                    break;
-                }
+                player_y = (player_y + height) % height;
+                player_x = (player_x + width) % width;
 
                 // Check after moving to render the new treasure position right after collecting, without
                 // requiring an additional move.
-                else if (new_head_x == treasure_x && new_head_y == treasure_y)
+                if (player_x == treasure_x && player_y == treasure_y)
                 {
                     score += 1;
                     (treasure_x, treasure_y) = GenerateTreasurePosition(width, height);
-                }
-                else
-                {
-                    snake.RemoveLast();
                 }
             }
         }
