@@ -45,20 +45,6 @@ class Program
         Console.WriteLine(entries[2][1]);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         var columnWidths = new int[entries[0].Count];
         for (int i = 0; i < entries.Count; i++)
         {
